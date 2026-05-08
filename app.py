@@ -1,10 +1,15 @@
 from flask import Flask, request
 import requests
+import os
 
 app = Flask(__name__)
 
 BOT_TOKEN = "8617804848:AAFP0g3mSC26uZ8awiCCtmH_giOE9VG70Xw"
 CHAT_ID = "-1003802471292"
+
+@app.route("/")
+def home():
+    return "Webhook Running"
 
 @app.route('/webhook', methods=['POST'])
 def webhook():
@@ -24,4 +29,6 @@ def webhook():
 
     return "ok"
 
-app.run(host="0.0.0.0", port=5000)
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
